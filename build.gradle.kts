@@ -9,8 +9,8 @@ group   = property("maven_group").toString()
 base.archivesName.set(property("archives_base_name").toString())
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 loom {
@@ -28,12 +28,10 @@ dependencies {
     mappings(loom.officialMojangMappings())
     modImplementation(libs.fabric.loader)
 
-compileOnly(files("libs/meteor-client.jar"))
-compileOnly("meteordevelopment:orbit:0.2.4")
-compileOnly(files("libs/orbit-0.2.4.jar"))
-
-    // Meteor's Baritone fork:
-    compileOnly(files("libs/baritone-26.1.jar"))
+    modCompileOnly(files("libs/meteor-client.jar")) {
+        isTransitive = false
+    }
+    compileOnly(files("libs/orbit-0.2.4.jar"))
 }
 
 tasks.processResources {
