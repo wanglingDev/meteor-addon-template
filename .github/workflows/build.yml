@@ -11,17 +11,18 @@ jobs:
           java-version: '25'
           distribution: 'temurin'
 
-      - name: Download Meteor jar
+      - name: Download deps
         run: |
           mkdir -p libs
           curl -fL "https://maven.meteordev.org/snapshots/meteordevelopment/meteor-client/26.1.2-SNAPSHOT/meteor-client-26.1.2-20260627.095629-32.jar" \
                -o libs/meteor-client.jar
+          jar tf libs/meteor-client.jar | head -3
           jar xf libs/meteor-client.jar META-INF/jars/orbit-0.2.4.jar
           mv META-INF/jars/orbit-0.2.4.jar libs/
           ls -lh libs/
 
       - name: Build
-        run: ./gradlew build --stacktrace
+        run: ./gradlew build
 
       - uses: actions/upload-artifact@v4
         with:
