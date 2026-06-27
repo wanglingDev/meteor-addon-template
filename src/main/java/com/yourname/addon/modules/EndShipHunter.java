@@ -255,11 +255,9 @@ public class EndShipHunter extends Module {
 
     // ── Baritone ──────────────────────────────────────────────────────────────
     private void startBaritone(BlockPos dest) {
-        IBaritone bar = BaritoneAPI.getProvider().getPrimaryBaritone();
-        bar.settings().elytraFlightNoLand.value = true;
-        bar.getCustomGoalProcess().setGoalAndPath(new GoalBlock(dest));
-        ChatUtils.info("EndShipHunter",
-            "Baritone → " + dest.getX() + ", " + dest.getY() + ", " + dest.getZ());
+    ChatUtils.info("EndShipHunter",
+        "Target: " + dest.getX() + ", " + dest.getY() + ", " + dest.getZ() +
+        " — install Baritone for auto-nav.");
     }
 
     private void stopBaritone() {
