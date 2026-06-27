@@ -261,9 +261,4 @@ public class EndShipHunter extends Module {
     }
 
     private void stopBaritone() {}
-        try {
-            BaritoneAPI.getProvider().getPrimaryBaritone()
-                .getPathingBehavior().cancelEverything();
-        } catch (Exception ignored) {}
-    }
 }
