@@ -27,9 +27,10 @@ dependencies {
     minecraft(libs.minecraft)
     mappings(loom.officialMojangMappings())
     modImplementation(libs.fabric.loader)
+}
 
-    compileOnly(files("libs/meteor-client.jar"))
-    compileOnly(files("libs/orbit-0.2.4.jar"))
+sourceSets.main {
+    compileClasspath += files("libs/meteor-client.jar", "libs/orbit-0.2.4.jar")
 }
 
 tasks.processResources {
