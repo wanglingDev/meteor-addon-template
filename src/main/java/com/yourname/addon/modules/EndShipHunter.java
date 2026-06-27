@@ -260,7 +260,7 @@ public class EndShipHunter extends Module {
         " — install Baritone for auto-nav.");
     }
 
-    private void stopBaritone() {
+    private void stopBaritone() {}
         try {
             BaritoneAPI.getProvider().getPrimaryBaritone()
                 .getPathingBehavior().cancelEverything();
