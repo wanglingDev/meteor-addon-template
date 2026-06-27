@@ -28,9 +28,7 @@ dependencies {
     mappings(loom.officialMojangMappings())
     modImplementation(libs.fabric.loader)
 
-    modCompileOnly(files("libs/meteor-client.jar")) {
-        isTransitive = false
-    }
+    modCompileOnly(files("libs/meteor-client.jar"))
     compileOnly(files("libs/orbit-0.2.4.jar"))
 }
 
