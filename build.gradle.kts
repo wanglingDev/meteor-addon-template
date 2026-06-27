@@ -31,7 +31,7 @@ dependencies {
 compileOnly(files("libs/meteor-client.jar"))
 
     // Meteor's Baritone fork:
-    // modCompileOnly(files("libs/baritone-26.1.jar"))
+    compileOnly(files("libs/baritone-26.1.jar"))
 }
 
 tasks.processResources {

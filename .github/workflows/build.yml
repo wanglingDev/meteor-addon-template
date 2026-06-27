@@ -28,3 +28,8 @@ jobs:
         with:
           name: end-ship-hunter
           path: build/libs/*.jar
+
+- name: Download Baritone jar
+        run: |
+          curl -L "https://meteorclient.com/api/downloadBaritone" \
+               -o libs/baritone-26.1.jar
