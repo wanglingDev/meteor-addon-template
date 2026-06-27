@@ -29,6 +29,8 @@ dependencies {
     modImplementation(libs.fabric.loader)
 
 compileOnly(files("libs/meteor-client.jar"))
+compileOnly("meteordevelopment:orbit:0.2.4")
+compileOnly(files("libs/orbit-0.2.4.jar"))
 
     // Meteor's Baritone fork:
     compileOnly(files("libs/baritone-26.1.jar"))
