@@ -9,7 +9,7 @@ import net.minecraft.world.item.Items;
 public class YourAddon extends MeteorAddon {
 
     // Change display name and item icon as you like
-    public static final Category CATEGORY = new Category("EndHunter", Items.ENDER_EYE.getDefaultInstance())
+    public static final Category CATEGORY = new Category("EndHunter", Items.ENDER_EYE.getDefaultInstance());
 
     @Override
     public void onInitialize() {

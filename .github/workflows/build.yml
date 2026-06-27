@@ -34,3 +34,10 @@ jobs:
         with:
           name: end-ship-hunter
           path: build/libs/*.jar
+
+      - name: Download deps
+        run: |
+          mkdir -p libs
+          curl -L "https://maven.meteordev.org/snapshots/meteordevelopment/meteor-client/26.1.2-SNAPSHOT/meteor-client-26.1.2-20260627.095629-32.jar" -o libs/meteor-client.jar
+          jar xf libs/meteor-client.jar META-INF/jars/orbit-0.2.4.jar
+          mv META-INF/jars/orbit-0.2.4.jar libs/

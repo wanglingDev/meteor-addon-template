@@ -31,3 +31,7 @@ bin/
 # fabric
 
 run/
+libs/meteor-client.jar
+libs/orbit-0.2.4.jar
+libs/meteor-client.jar
+libs/orbit-0.2.4.jar
