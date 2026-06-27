@@ -5,6 +5,7 @@ on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -17,8 +18,13 @@ jobs:
       - name: Download Meteor jar
         run: |
           mkdir -p libs
-          curl -L "https://maven.meteordev.org/snapshots/meteordevelopment/meteor-client/26.1.2-SNAPSHOT/meteor-client-26.1.2-20260627.095629-32.jar" \
-               -o libs/meteor-client.jar
+          curl -L "https://maven.meteordev.org/snapshots/meteordev/meteor-client/latest/meteor-client-latest.jar" \
+            -o libs/meteor-client.jar
+
+      - name: Download Baritone jar
+        run: |
+          curl -L "https://meteorclient.com/api/downloadBaritone" \
+            -o libs/baritone-26.1.jar
 
       - name: Build
         run: ./gradlew build
@@ -28,8 +34,3 @@ jobs:
         with:
           name: end-ship-hunter
           path: build/libs/*.jar
-
-- name: Download Baritone jar
-        run: |
-          curl -L "https://meteorclient.com/api/downloadBaritone" \
-               -o libs/baritone-26.1.jar
