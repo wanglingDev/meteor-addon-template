@@ -16,7 +16,10 @@ java {
 loom {
     runConfigs["client"].ideConfigGenerated(true)
     mixin.defaultRefmapName.set("addon.refmap.json")
-    remapArchives = false
+}
+
+tasks.named("remapJar") {
+    enabled = false
 }
 
 tasks.build {
