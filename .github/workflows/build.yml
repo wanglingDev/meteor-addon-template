@@ -11,6 +11,11 @@ jobs:
           java-version: '25'
           distribution: 'temurin'
 
+      - name: Debug repo
+        run: |
+          ls -la repo/meteordevelopment/meteor-client/26.1.2-local/
+          jar tf repo/meteordevelopment/meteor-client/26.1.2-local/meteor-client-26.1.2-local.jar | head -5
+
       - name: Download orbit
         run: |
           mkdir -p libs
