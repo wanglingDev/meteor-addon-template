@@ -18,8 +18,10 @@ loom {
     mixin.defaultRefmapName.set("addon.refmap.json")
 }
 
-tasks.named("remapJar") {
-    enabled = false
+tasks.remapJar {
+    classpath.from(
+        files("repo/meteordevelopment/meteor-client/26.1.2-local/meteor-client-26.1.2-local.jar")
+    )
 }
 
 tasks.build {
