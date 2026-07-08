@@ -19,6 +19,10 @@ loom {
     remapArchives = false
 }
 
+tasks.build {
+    dependsOn(tasks.jar)
+}
+
 // force Loom to search mavenLocal
 configurations.all {
     resolutionStrategy.eachDependency {
