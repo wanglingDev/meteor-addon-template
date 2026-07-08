@@ -7,8 +7,8 @@ import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.movement.EntityControl;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.orbit.EventHandler;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,24 +54,25 @@ public class EndShipHunter extends Module {
     );
 
     private final List<BlockPos> candidates = new ArrayList<>();
-    private BlockPos target    = null;
-    private boolean navigating = false;
+    private BlockPos target      = null;
+    private boolean  navigating  = false;
 
-    private EntityControl ec          = null;
-    private boolean ecWasActive       = false;
-    private boolean ecPrevFly         = false;
-    private double  ecPrevFallSpeed   = 0;
-    private boolean ecPrevAntiKick    = true;
+    private EntityControl ec            = null;
+    private boolean       ecWasActive   = false;
+    private boolean       ecPrevFly     = false;
+    private double        ecPrevFall    = 0;
+    private boolean       ecPrevAntiKick = true;
 
     public EndShipHunter() {
-        super(com.yourname.addon.YourAddon.CATEGORY, "end-ship-hunter",
+        super(com.yourname.addon.YourAddon.CATEGORY,
+            "end-ship-hunter",
             "Locates nearest End Ship via seed maths.");
     }
 
     @Override
     public void onActivate() {
         candidates.clear();
-        target     = null;
+        target    = null;
         navigating = false;
 
         long seed;
@@ -110,8 +111,8 @@ public class EndShipHunter extends Module {
     @EventHandler
     private void onTick(TickEvent.Post event) {
         if (mc.player == null || !navigating || target == null) return;
-        Vec3 pos  = mc.player.position();
-        Vec3 dest = Vec3.atCenterOf(target);
+        Vec3d pos  = mc.player.getPos();
+        Vec3d dest = Vec3d.ofCenter(target);
         if (pos.distanceTo(dest) < 16.0) {
             ChatUtils.info("EndShipHunter", "Arrived! Grab that Elytra!");
             navigating = false;
@@ -122,10 +123,10 @@ public class EndShipHunter extends Module {
     private void applyEntityControl() {
         ec = Modules.get().get(EntityControl.class);
         if (ec == null) return;
-        ecWasActive   = ec.isActive();
-        ecPrevFly     = getSetting(ec, "fly",           Boolean.class, false);
-        ecPrevFallSpeed = getSetting(ec, "fall-speed",  Double.class,  0.0);
-        ecPrevAntiKick  = getSetting(ec, "anti-fly-kick", Boolean.class, true);
+        ecWasActive    = ec.isActive();
+        ecPrevFly      = getSetting(ec, "fly",           Boolean.class, false);
+        ecPrevFall     = getSetting(ec, "fall-speed",    Double.class,  0.0);
+        ecPrevAntiKick = getSetting(ec, "anti-fly-kick", Boolean.class, true);
         setSetting(ec, "fly",           true);
         setSetting(ec, "fall-speed",    0.0);
         setSetting(ec, "anti-fly-kick", true);
@@ -135,7 +136,7 @@ public class EndShipHunter extends Module {
     private void restoreEntityControl() {
         if (ec == null) return;
         setSetting(ec, "fly",           ecPrevFly);
-        setSetting(ec, "fall-speed",    ecPrevFallSpeed);
+        setSetting(ec, "fall-speed",    ecPrevFall);
         setSetting(ec, "anti-fly-kick", ecPrevAntiKick);
         if (!ecWasActive && ec.isActive()) ec.toggle();
         ec = null;
@@ -199,11 +200,11 @@ public class EndShipHunter extends Module {
 
     private void pickNearest() {
         if (mc.player == null || candidates.isEmpty()) return;
-        Vec3 pos = mc.player.position();
+        Vec3d pos = mc.player.getPos();
         target = candidates.stream()
             .min((a, b) -> Double.compare(
-                pos.distanceToSqr(a.getX(), pos.y, a.getZ()),
-                pos.distanceToSqr(b.getX(), pos.y, b.getZ())))
+                pos.squaredDistanceTo(a.getX(), pos.y, a.getZ()),
+                pos.squaredDistanceTo(b.getX(), pos.y, b.getZ())))
             .orElse(candidates.get(0));
     }
 }
