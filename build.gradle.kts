@@ -18,18 +18,19 @@ loom {
     mixin.defaultRefmapName.set("addon.refmap.json")
 }
 
-repositories {
-    mavenCentral()
-    maven("https://maven.meteordev.org/releases")
-    maven("https://maven.meteordev.org/snapshots")
-}
-
 dependencies {
     minecraft(libs.minecraft)
     mappings(loom.officialMojangMappings())
     modImplementation(libs.fabric.loader)
-    compileOnly(files("libs/meteor-client.jar"))
+    modCompileOnly("meteordevelopment:meteor-client:26.1.2-local")
     compileOnly(files("libs/orbit-0.2.4.jar"))
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven("https://maven.meteordev.org/releases")
+    maven("https://maven.meteordev.org/snapshots")
 }
 
 afterEvaluate {

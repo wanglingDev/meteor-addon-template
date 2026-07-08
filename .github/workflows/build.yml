@@ -11,32 +11,38 @@ jobs:
           java-version: '25'
           distribution: 'temurin'
 
-      - name: Download deps
+      - name: Setup Meteor in local Maven
         run: |
           mkdir -p libs tmp-meteor
           curl -fL "https://maven.meteordev.org/snapshots/meteordevelopment/meteor-client/26.1.2-SNAPSHOT/meteor-client-26.1.2-20260704.225351-37.jar" \
                -o libs/meteor-client-orig.jar
 
-          # strip accessWidener dari fabric.mod.json dalam jar
+          # strip accessWidener
           cd tmp-meteor
           jar xf ../libs/meteor-client-orig.jar
           python3 -c "
-          import json
-          with open('fabric.mod.json') as f:
-              d = json.load(f)
-          d.pop('accessWidener', None)
-          with open('fabric.mod.json', 'w') as f:
-              json.dump(d, f)
-          "
+import json
+with open('fabric.mod.json') as f:
+    d = json.load(f)
+d.pop('accessWidener', None)
+with open('fabric.mod.json', 'w') as f:
+    json.dump(d, f)
+"
           jar cf ../libs/meteor-client.jar .
           cd ..
 
+          # install ke local Maven
+          mvn install:install-file \
+            -Dfile=libs/meteor-client.jar \
+            -DgroupId=meteordevelopment \
+            -DartifactId=meteor-client \
+            -Dversion=26.1.2-local \
+            -Dpackaging=jar \
+            -DgeneratePom=true
+
           # extract orbit
-          jar xf libs/meteor-client.jar META-INF/jars/orbit-0.2.4.jar 2>/dev/null || \
           jar xf libs/meteor-client-orig.jar META-INF/jars/orbit-0.2.4.jar
           mv META-INF/jars/orbit-0.2.4.jar libs/
-          ls -lh libs/
-
       - name: Build
         run: ./gradlew build
 
