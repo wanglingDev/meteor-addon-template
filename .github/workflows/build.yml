@@ -14,7 +14,7 @@ jobs:
       - name: Download deps
         run: |
           mkdir -p libs tmp-meteor
-          curl -fL "https://maven.meteordev.org/snapshots/meteordevelopment/meteor-client/26.1.2-SNAPSHOT/meteor-client-26.1.2-20260627.095629-32.jar" \
+          curl -fL "https://maven.meteordev.org/snapshots/meteordevelopment/meteor-client/26.1.2-SNAPSHOT/meteor-client-26.1.2-20260704.225351-37.jar" \
                -o libs/meteor-client-orig.jar
 
           # strip accessWidener dari fabric.mod.json dalam jar
