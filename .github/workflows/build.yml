@@ -48,6 +48,9 @@ POM
           mv META-INF/jars/orbit-0.2.4.jar libs/
           ls -lh libs/ repo/meteordevelopment/meteor-client/26.1.2-local/
 
+          ls -la repo/meteordevelopment/meteor-client/26.1.2-local/
+          file repo/meteordevelopment/meteor-client/26.1.2-local/*.jar
+
       - name: Build
         run: ./gradlew build
 
