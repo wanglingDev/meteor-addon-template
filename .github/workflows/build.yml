@@ -28,4 +28,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: end-ship-hunter
-          path: build/libs/*.jar
+          path: |
+            build/libs/*.jar
+            build/devlibs/*.jar
+          if-no-files-found: warn
