@@ -28,10 +28,19 @@ dependencies {
     minecraft(libs.minecraft)
     mappings(loom.officialMojangMappings())
     modImplementation(libs.fabric.loader)
+    compileOnly(files("libs/meteor-client.jar"))
+    compileOnly(files("libs/orbit-0.2.4.jar"))
 }
 
-tasks.compileJava {
-    classpath = classpath + files("libs/meteor-client.jar", "libs/orbit-0.2.4.jar")
+loom {
+    runConfigs["client"].ideConfigGenerated(true)
+    mixin.defaultRefmapName.set("addon.refmap.json")
+    mods {
+        create("meteor-client") {
+            sourceSet(sourceSets.main.get())
+            classpath(files("libs/meteor-client.jar"))
+        }
+    }
 }
 
 sourceSets.main {
