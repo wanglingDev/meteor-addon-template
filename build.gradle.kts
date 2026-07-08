@@ -8,6 +8,10 @@ version = property("mod_version").toString()
 group   = property("maven_group").toString()
 base.archivesName.set(property("archives_base_name").toString())
 
+loom {
+    enableTransitiveAccessWideners.set(false)
+}
+
 repositories {
     maven { url = uri("https://maven.meteordev.org/releases") }
     maven { url = uri("https://maven.meteordev.org/snapshots") }
