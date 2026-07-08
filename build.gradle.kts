@@ -32,6 +32,15 @@ dependencies {
     compileOnly(files("libs/orbit-0.2.4.jar"))
 }
 
+afterEvaluate {
+    tasks.compileJava {
+        classpath = classpath + files(
+            "${projectDir}/libs/meteor-client.jar",
+            "${projectDir}/libs/orbit-0.2.4.jar"
+        )
+    }
+}
+
 loom {
     runConfigs["client"].ideConfigGenerated(true)
     mixin.defaultRefmapName.set("addon.refmap.json")
