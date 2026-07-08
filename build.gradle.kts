@@ -33,27 +33,12 @@ dependencies {
 }
 
 afterEvaluate {
-    tasks.compileJava {
+    tasks.named<JavaCompile>("compileJava") {
         classpath = classpath + files(
             "${projectDir}/libs/meteor-client.jar",
             "${projectDir}/libs/orbit-0.2.4.jar"
         )
     }
-}
-
-loom {
-    runConfigs["client"].ideConfigGenerated(true)
-    mixin.defaultRefmapName.set("addon.refmap.json")
-    mods {
-        create("meteor-client") {
-            sourceSet(sourceSets.main.get())
-            classpath(files("libs/meteor-client.jar"))
-        }
-    }
-}
-
-sourceSets.main {
-    compileClasspath += files("libs/meteor-client.jar", "libs/orbit-0.2.4.jar")
 }
 
 tasks.processResources {
@@ -62,9 +47,6 @@ tasks.processResources {
         "mc_version" to libs.versions.minecraft.get(),
         "loader_version" to libs.versions.fabric.loader.get()
     )
-
     inputs.properties(props)
-    filesMatching("fabric.mod.json") {
-        expand(props)
-    }
+    filesMatching("fabric.mod.json") { expand(props) }
 }
