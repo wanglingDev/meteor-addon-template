@@ -16,6 +16,7 @@ java {
 loom {
     runConfigs["client"].ideConfigGenerated(true)
     mixin.defaultRefmapName.set("addon.refmap.json")
+    remapArchives = false
 }
 
 // force Loom to search mavenLocal
