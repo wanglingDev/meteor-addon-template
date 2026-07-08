@@ -30,6 +30,10 @@ dependencies {
     modImplementation(libs.fabric.loader)
 }
 
+tasks.compileJava {
+    classpath = classpath + files("libs/meteor-client.jar", "libs/orbit-0.2.4.jar")
+}
+
 sourceSets.main {
     compileClasspath += files("libs/meteor-client.jar", "libs/orbit-0.2.4.jar")
 }
