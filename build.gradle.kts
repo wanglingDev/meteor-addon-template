@@ -18,6 +18,15 @@ loom {
     mixin.defaultRefmapName.set("addon.refmap.json")
 }
 
+// force Loom to search mavenLocal
+configurations.all {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "meteordevelopment" && requested.name == "meteor-client") {
+            useVersion("26.1.2-local")
+        }
+    }
+}
+
 dependencies {
     minecraft(libs.minecraft)
     mappings(loom.officialMojangMappings())
