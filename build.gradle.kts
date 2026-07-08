@@ -28,7 +28,7 @@ configurations.all {
 }
 
 repositories {
-    maven(url = uri("${projectDir}/repo"))
+    maven(url = uri("${rootProject.projectDir}/repo"))
     mavenCentral()
     maven("https://maven.meteordev.org/releases")
     maven("https://maven.meteordev.org/snapshots")
