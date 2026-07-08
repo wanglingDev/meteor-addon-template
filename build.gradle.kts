@@ -38,16 +38,15 @@ dependencies {
     minecraft(libs.minecraft)
     mappings(loom.officialMojangMappings())
     modImplementation(libs.fabric.loader)
-    modCompileOnly("meteordevelopment:meteor-client:26.1.2-local")
+    compileOnly(files("repo/meteordevelopment/meteor-client/26.1.2-local/meteor-client-26.1.2-local.jar"))
     compileOnly(files("libs/orbit-0.2.4.jar"))
 }
 
 afterEvaluate {
     tasks.named<JavaCompile>("compileJava") {
-        classpath = classpath + files(
-            "${projectDir}/libs/meteor-client.jar",
-            "${projectDir}/libs/orbit-0.2.4.jar"
-        )
+        classpath = classpath +
+            files("${rootProject.projectDir}/repo/meteordevelopment/meteor-client/26.1.2-local/meteor-client-26.1.2-local.jar") +
+            files("${rootProject.projectDir}/libs/orbit-0.2.4.jar")
     }
 }
 
