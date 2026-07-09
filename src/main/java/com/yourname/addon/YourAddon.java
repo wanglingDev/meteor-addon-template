@@ -19,4 +19,10 @@ public class YourAddon extends MeteorAddon {
     public String getPackage() {
         return "com.yourname.addon";
     }
+
+    @Override
+public void onInitialize() {
+    Modules.get().addCategory(CATEGORY);  // ← tambah ini
+    Modules.get().add(new EndShipHunter());
+    }
 }
