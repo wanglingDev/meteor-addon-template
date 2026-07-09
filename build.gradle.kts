@@ -28,7 +28,11 @@ dependencies {
 }
 
 tasks.processResources {
-    val props = mapOf("version" to version)
+    val props = mapOf(
+        "version" to version,
+        "mc_version" to "1.21.11",
+        "loader_version" to "0.19.2"
+    )
     inputs.properties(props)
     filesMatching("fabric.mod.json") { expand(props) }
 }
