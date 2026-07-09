@@ -21,7 +21,8 @@ dependencies {
     minecraft(libs.minecraft)
     mappings(variantOf(libs.yarn) { classifier("v2") })
     modImplementation(libs.fabricLoader)
-    modCompileOnly(libs.meteorClient)
+    compileOnly(libs.meteorClient)
+    compileOnly("meteordevelopment:orbit:0.2.4")
 }
 
 tasks.processResources {
