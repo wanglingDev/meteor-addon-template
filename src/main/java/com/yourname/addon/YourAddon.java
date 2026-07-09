@@ -2,13 +2,9 @@ package com.yourname.addon;
 
 import com.yourname.addon.modules.EndShipHunter;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
-import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
-import net.minecraft.world.item.Items;
 
 public class YourAddon extends MeteorAddon {
-
-    public static final Category CATEGORY = new Category("EndHunter", Items.ENDER_EYE.getDefaultInstance());
 
     @Override
     public void onInitialize() {

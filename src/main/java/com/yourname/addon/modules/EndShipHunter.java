@@ -9,6 +9,7 @@ import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
+import meteordevelopment.meteorclient.systems.modules.Categories;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,10 +65,9 @@ public class EndShipHunter extends Module {
     private boolean       ecPrevAntiKick = true;
 
     public EndShipHunter() {
-        super(com.yourname.addon.YourAddon.CATEGORY,
-            "end-ship-hunter",
-            "Locates nearest End Ship via seed maths.");
-    }
+    super(Categories.MOVEMENT, "end-ship-hunter",
+        "Locates nearest End Ship via seed maths.");
+        }
 
     @Override
     public void onActivate() {
