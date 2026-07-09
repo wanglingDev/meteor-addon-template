@@ -7,8 +7,8 @@ import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.movement.EntityControl;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.orbit.EventHandler;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,10 +57,10 @@ public class EndShipHunter extends Module {
     private BlockPos target      = null;
     private boolean  navigating  = false;
 
-    private EntityControl ec            = null;
-    private boolean       ecWasActive   = false;
-    private boolean       ecPrevFly     = false;
-    private double        ecPrevFall    = 0;
+    private EntityControl ec             = null;
+    private boolean       ecWasActive    = false;
+    private boolean       ecPrevFly      = false;
+    private double        ecPrevFall     = 0;
     private boolean       ecPrevAntiKick = true;
 
     public EndShipHunter() {
@@ -72,7 +72,7 @@ public class EndShipHunter extends Module {
     @Override
     public void onActivate() {
         candidates.clear();
-        target    = null;
+        target     = null;
         navigating = false;
 
         long seed;
@@ -111,8 +111,8 @@ public class EndShipHunter extends Module {
     @EventHandler
     private void onTick(TickEvent.Post event) {
         if (mc.player == null || !navigating || target == null) return;
-        Vec3d pos  = mc.player.getPos();
-        Vec3d dest = Vec3d.ofCenter(target);
+        Vec3 pos  = mc.player.position();
+        Vec3 dest = Vec3.atCenterOf(target);
         if (pos.distanceTo(dest) < 16.0) {
             ChatUtils.info("EndShipHunter", "Arrived! Grab that Elytra!");
             navigating = false;
@@ -200,11 +200,11 @@ public class EndShipHunter extends Module {
 
     private void pickNearest() {
         if (mc.player == null || candidates.isEmpty()) return;
-        Vec3d pos = mc.player.getPos();
+        Vec3 pos = mc.player.position();
         target = candidates.stream()
             .min((a, b) -> Double.compare(
-                pos.squaredDistanceTo(a.getX(), pos.y, a.getZ()),
-                pos.squaredDistanceTo(b.getX(), pos.y, b.getZ())))
+                pos.distanceToSqr(a.getX(), pos.y, a.getZ()),
+                pos.distanceToSqr(b.getX(), pos.y, b.getZ())))
             .orElse(candidates.get(0));
     }
 }
