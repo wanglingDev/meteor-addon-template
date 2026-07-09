@@ -23,7 +23,14 @@ jobs:
           mv META-INF/jars/orbit-0.2.4.jar libs/
 
       - name: Build
-        run: ./gradlew build
+        run: ./gradlew build --stacktrace 2>&1 | tee build.log; exit ${PIPESTATUS[0]}
+
+      - name: Upload log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log
 
       - uses: actions/upload-artifact@v4
         with:
