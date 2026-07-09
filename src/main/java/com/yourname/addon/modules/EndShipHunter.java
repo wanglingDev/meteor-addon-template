@@ -65,7 +65,7 @@ public class EndShipHunter extends Module {
     private boolean       ecPrevAntiKick = true;
 
     public EndShipHunter() {
-    super(Categories.MOVEMENT, "end-ship-hunter",
+    super(Categories.Movement, "end-ship-hunter",
         "Locates nearest End Ship via seed maths.");
         }
 
