@@ -23,7 +23,7 @@ jobs:
           mv META-INF/jars/orbit-0.2.4.jar libs/
 
       - name: Build
-        run: ./gradlew build
+        run: ./gradlew build --stacktrace 2>&1 | tail -50
 
       - uses: actions/upload-artifact@v4
         with:
